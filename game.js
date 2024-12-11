@@ -25,7 +25,6 @@ function playGame() {
   console.log(`FINAL SCORE:\n` + `🧑🏻 Player: ${playerScore}\n` + `👾 Computer: ${computerScore}`);
 }
 
-
 function playRound(round) {
   const playerChoice = getPlayerChoice();
   const computerChoice = generateComputerChoice();
@@ -52,14 +51,12 @@ function playRound(round) {
   console.log(`🧑🏻 Player score: ${playerScore}\n` + `👾 Computer score: ${computerScore}`);
 }
 
-
 function generateComputerChoice() {
   const computerChoice = ["rock", "paper", "scissors"];
   const randomNumber = Math.floor(Math.random() * 3); // Generate a random number from 1-3
 
   return computerChoice[randomNumber];
 }
-
 
 function getPlayerChoice() {
   const validOptions = ["rock", "paper", "scissors"];
