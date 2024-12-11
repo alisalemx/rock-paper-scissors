@@ -1,43 +1,68 @@
 let computerScore = 0;
 let playerScore = 0;
 
-playRound(1);
+playGame();
+
+function playGame() {
+  for (let i = 1; i <= 5; i++) {
+    const round = playRound(i);
+
+    // Exit if round isn't played when player exits
+    if (round === null) {
+      console.log("Player left the game and there's no winner.");
+      return;
+    }
+  }
+
+  if (playerScore === computerScore) {
+    console.log("🟡🟡🟡 THE GAME IS TIED! 🟡🟡🟡");
+  } else if (playerScore > computerScore) {
+    console.log("🧑🏻🧑🏻🧑🏻 PLAYER WINS THE GAME! 🧑🏻🧑🏻🧑🏻");
+  } else {
+    console.log("👾👾👾 COMPUTER WINS THE GAME! 👾👾👾");
+  }
+
+  console.log(`FINAL SCORE:\n` + `🧑🏻 Player: ${playerScore}\n` + `👾 Computer: ${computerScore}`);
+}
+
 
 function playRound(round) {
-  let playerChoice = getPlayerChoice();
-  let computerChoice = generateComputerChoice();
+  const playerChoice = getPlayerChoice();
+  const computerChoice = generateComputerChoice();
 
-  // Exit if player choice is null
-  if (!playerChoice) { return; }
+  // Exit and return null if there's no player choice
+  if (!playerChoice) { return null; }
 
-  console.log(`Round: ${round}\n` + `Player choice: ${playerChoice}\n` + `Computer choice: ${computerChoice}`);
+  console.log(`ROUND: ${round}\n` + `🧑🏻 Player choice: ${playerChoice}\n` + `👾 Computer choice: ${computerChoice}`);
 
   if (playerChoice === computerChoice) {
-    console.log("It's a tie!");
+    console.log("🟡 IT'S A TIE!");
   } else if (
     (playerChoice === "rock" && computerChoice === "scissors") ||
     (playerChoice === "paper" && computerChoice === "rock") ||
     (playerChoice === "scissors" && computerChoice === "paper")
   ) {
     playerScore++;
-    console.log("You win this round!");
+    console.log("🧑🏻 PLAYER WINS THIS ROUND!");
   } else {
     computerScore++;
-    console.log("Computer wins this round!");
+    console.log("👾 COMPUTER WINS THIS ROUND!");
   }
 
-  console.log(`Your score so far is: ${playerScore}\n` + `Computer score so far is: ${computerScore}`);
+  console.log(`🧑🏻 Player score: ${playerScore}\n` + `👾 Computer score: ${computerScore}`);
 }
 
+
 function generateComputerChoice() {
-  let computerChoice = ["rock", "paper", "scissors"];
-  let randomNumber = Math.floor(Math.random() * 3); // Generate a random number from 1-3
+  const computerChoice = ["rock", "paper", "scissors"];
+  const randomNumber = Math.floor(Math.random() * 3); // Generate a random number from 1-3
 
   return computerChoice[randomNumber];
 }
 
+
 function getPlayerChoice() {
-  let validOptions = ["rock", "paper", "scissors"];
+  const validOptions = ["rock", "paper", "scissors"];
   let playerChoice;
 
   do {
