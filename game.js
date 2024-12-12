@@ -1,10 +1,10 @@
 let computerScore = 0;
 let playerScore = 0;
 
-playGame();
+playGame(5);
 
-function playGame() {
-  for (let i = 1; i <= 5; i++) {
+function playGame(rounds) {
+  for (let i = 1; i <= rounds; i++) {
     const round = playRound(i);
 
     // Exit if round isn't played when player exits
