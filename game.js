@@ -29,6 +29,9 @@ async function playRound(round) {
   const playerChoice = await getPlayerChoice();
   const computerChoice = generateComputerChoice();
 
+  // Return null to be passed to the playGame function if player presses exit
+  if (playerChoice === "exit") { return null; }
+
   console.log(`ROUND: ${round}\n` + `🧑🏻 Player choice: ${playerChoice}\n` + `👾 Computer choice: ${computerChoice}`);
 
   if (playerChoice === computerChoice) {
@@ -60,6 +63,7 @@ function getPlayerChoice() {
     const rock = document.querySelector("#rock");
     const paper = document.querySelector("#paper");
     const scissors = document.querySelector("#scissors");
+    const exit = document.querySelector("#exit");
 
     const handleClick = (e) => {
       const playerChoice = e.target.textContent.toLowerCase();
@@ -69,6 +73,7 @@ function getPlayerChoice() {
     rock.addEventListener("click", handleClick, { once: true });
     paper.addEventListener("click", handleClick, { once: true });
     scissors.addEventListener("click", handleClick, { once: true });
+    exit.addEventListener("click", handleClick, { once: true });
   });
 }
 
