@@ -3,9 +3,9 @@ let playerScore = 0;
 
 playGame(5);
 
-function playGame(rounds) {
+async function playGame(rounds) {
   for (let i = 1; i <= rounds; i++) {
-    const round = playRound(i);
+    const round = await playRound(i);
 
     // Exit if round isn't played when player exits
     if (round === null) {
@@ -25,12 +25,9 @@ function playGame(rounds) {
   console.log(`FINAL SCORE:\n` + `🧑🏻 Player: ${playerScore}\n` + `👾 Computer: ${computerScore}`);
 }
 
-function playRound(round) {
-  const playerChoice = getPlayerChoice();
+async function playRound(round) {
+  const playerChoice = await getPlayerChoice();
   const computerChoice = generateComputerChoice();
-
-  // Exit and return null if there's no player choice
-  if (!playerChoice) { return null; }
 
   console.log(`ROUND: ${round}\n` + `🧑🏻 Player choice: ${playerChoice}\n` + `👾 Computer choice: ${computerChoice}`);
 
@@ -59,26 +56,50 @@ function generateComputerChoice() {
 }
 
 function getPlayerChoice() {
-  const validOptions = ["rock", "paper", "scissors"];
-  let playerChoice;
+  return new Promise((resolve) => {
+    const rock = document.querySelector("#rock");
+    const paper = document.querySelector("#paper");
+    const scissors = document.querySelector("#scissors");
 
-  do {
-    playerChoice = prompt("Enter a choice from rock, paper, or scissors.");
+    const handleClick = (e) => {
+      const playerChoice = e.target.textContent.toLowerCase();
+      resolve(playerChoice); // Resolve the promise with the player's choice
+    };
 
-    if (playerChoice === null) {
-      console.log("Thanks for playing.");
-      break;
-    } else if (playerChoice === "") {
-      console.log("Input can't be empty. Enter a choice from rock, paper, or scissors.");
-      continue;
-    }
-
-    playerChoice = playerChoice.trim().toLowerCase();
-
-    if (!validOptions.includes(playerChoice)) {
-      console.log("Invalid input. Enter a choice from rock, paper, or scissors.");
-    }
-  } while (!validOptions.includes(playerChoice));
-
-  return playerChoice;
+    rock.addEventListener("click", handleClick, { once: true });
+    paper.addEventListener("click", handleClick, { once: true });
+    scissors.addEventListener("click", handleClick, { once: true });
+  });
 }
+
+/**
+ * @deprecated This function is being deprecated because it relies on the browser's `prompt` API,
+ * which is not suitable for modern applications. Consider using a custom input mechanism
+ * (e.g., a form or UI element) to collect player input.
+ *
+ * Suggested Replacement: Use a UI-based input method or pass player choice as a function parameter.
+ */
+// function deprecatedGetPlayerChoice() {
+//   const validOptions = ["rock", "paper", "scissors"];
+//   let playerChoice;
+
+//   do {
+//     playerChoice = prompt("Enter a choice from rock, paper, or scissors.");
+
+//     if (playerChoice === null) {
+//       console.log("Thanks for playing.");
+//       break;
+//     } else if (playerChoice === "") {
+//       console.log("Input can't be empty. Enter a choice from rock, paper, or scissors.");
+//       continue;
+//     }
+
+//     playerChoice = playerChoice.trim().toLowerCase();
+
+//     if (!validOptions.includes(playerChoice)) {
+//       console.log("Invalid input. Enter a choice from rock, paper, or scissors.");
+//     }
+//   } while (!validOptions.includes(playerChoice));
+
+//   return playerChoice;
+// }
