@@ -1,5 +1,6 @@
 let computerScore = 0;
 let playerScore = 0;
+const resultDisplay = document.querySelector(".result");
 
 playGame(5);
 
@@ -9,20 +10,20 @@ async function playGame(rounds) {
 
     // Exit if round isn't played when player exits
     if (round === null) {
-      console.log("Player left the game and there's no winner.");
+      resultDisplay.innerHTML += "<p>Player left the game and there's no winner.</p>";
       return;
     }
   }
 
   if (playerScore === computerScore) {
-    console.log("🟡🟡🟡 THE GAME IS TIED! 🟡🟡🟡");
+    resultDisplay.innerHTML += "<p>🟡🟡🟡 THE GAME IS TIED! 🟡🟡🟡</p>";
   } else if (playerScore > computerScore) {
-    console.log("🧑🏻🧑🏻🧑🏻 PLAYER WINS THE GAME! 🧑🏻🧑🏻🧑🏻");
+    resultDisplay.innerHTML += "<p>🧑🏻🧑🏻🧑🏻 PLAYER WINS THE GAME! 🧑🏻🧑🏻🧑🏻</p>";
   } else {
-    console.log("👾👾👾 COMPUTER WINS THE GAME! 👾👾👾");
+    resultDisplay.innerHTML += "<p>👾👾👾 COMPUTER WINS THE GAME! 👾👾👾</p>";
   }
 
-  console.log(`FINAL SCORE:\n` + `🧑🏻 Player: ${playerScore}\n` + `👾 Computer: ${computerScore}`);
+  resultDisplay.innerHTML += `<p>FINAL SCORE:\n` + `🧑🏻 Player: ${playerScore}\n` + `👾 Computer: ${computerScore}</p>`;
 }
 
 async function playRound(round) {
@@ -32,23 +33,23 @@ async function playRound(round) {
   // Return null to be passed to the playGame function if player presses exit
   if (playerChoice === "exit") { return null; }
 
-  console.log(`ROUND: ${round}\n` + `🧑🏻 Player choice: ${playerChoice}\n` + `👾 Computer choice: ${computerChoice}`);
+  resultDisplay.innerHTML += `<p>ROUND: ${round}\n` + `🧑🏻 Player choice: ${playerChoice}\n` + `👾 Computer choice: ${computerChoice}</p>`;
 
   if (playerChoice === computerChoice) {
-    console.log("🟡 IT'S A TIE!");
+    resultDisplay.innerHTML += "<p>🟡 IT'S A TIE!</p>";
   } else if (
     (playerChoice === "rock" && computerChoice === "scissors") ||
     (playerChoice === "paper" && computerChoice === "rock") ||
     (playerChoice === "scissors" && computerChoice === "paper")
   ) {
     playerScore++;
-    console.log("🧑🏻 PLAYER WINS THIS ROUND!");
+    resultDisplay.innerHTML += "<p>🧑🏻 PLAYER WINS THIS ROUND!</p>";
   } else {
     computerScore++;
-    console.log("👾 COMPUTER WINS THIS ROUND!");
+    resultDisplay.innerHTML += "<p>👾 COMPUTER WINS THIS ROUND!</p>";
   }
 
-  console.log(`🧑🏻 Player score: ${playerScore}\n` + `👾 Computer score: ${computerScore}`);
+  resultDisplay.innerHTML += `<p>🧑🏻 Player score: ${playerScore}\n` + `👾 Computer score: ${computerScore}</p>`;
 }
 
 function generateComputerChoice() {
